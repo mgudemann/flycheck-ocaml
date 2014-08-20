@@ -1,6 +1,8 @@
 ;;; flycheck-ocaml.el --- checker for Ocaml
 
 
+(require 'flycheck)
+
 (defun flycheck-parse-ocamlc (output _checker _buffer)
   "Parse OCaml compiler errors errors from OUTPUT.
 
@@ -36,3 +38,7 @@ See URL `http://caml.inria.fr/ocaml/index.en.html'."
   :command ("ocamlc" "-w" "+A" source)
   :error-parser flycheck-parse-ocamlc
   :modes (tuareg-mode))
+
+(add-to-list 'flycheck-checkers 'ocaml-ocamlc)
+
+(add-hook 'tuareg-mode (lambda () (flycheck-select-checker 'ocaml-ocamlc)))
